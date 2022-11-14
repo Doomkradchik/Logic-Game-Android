@@ -12,8 +12,7 @@ public class Node : MonoBehaviour
     public ChainEntity ChainEntity { get; private set; }
     private void Awake()
     {
-        ChainEntity = new ChainEntity(
-            _nodes.Select(node => node.ChainEntity).ToArray(), _isActive);
+        ChainEntity = new ChainEntity(_isActive);
 
         ChainEntity.StateChanged += () => GetComponent<SpriteRenderer>().color =
         ChainEntity.isActive ? Color.green : Color.red;
@@ -21,7 +20,9 @@ public class Node : MonoBehaviour
 
     private void Start()
     {
-        ChainEntity.OnStart();
+        ChainEntity
+            .BindNeighbours(_nodes.Select(node => node.ChainEntity).ToArray())
+            .OnStart();
     }
 
     private void OnMouseDown()
