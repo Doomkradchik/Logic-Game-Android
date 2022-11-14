@@ -553,8 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isActive: 0
-  _nodes:
-  - {fileID: 593612120}
+  _nodes: []
 --- !u!212 &1809082567
 SpriteRenderer:
   m_ObjectHideFlags: 0
