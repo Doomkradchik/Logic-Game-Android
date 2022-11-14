@@ -32,7 +32,7 @@ public class ChainEntity
 
     public void OnStart()
     {
-        //Validate(this);
+        Validate(this);
         StateChanged?.Invoke();
     }
     public void ChangeState()

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Node : CompositeRoot
 {
     [SerializeField]
     private bool _isActive;
@@ -10,23 +10,27 @@ public class Node : MonoBehaviour
     private Node[] _nodes;
 
     public ChainEntity ChainEntity { get; private set; }
-    private void Awake()
-    {
-        ChainEntity = new ChainEntity(_isActive);
-
-        ChainEntity.StateChanged += () => GetComponent<SpriteRenderer>().color =
-        ChainEntity.isActive ? Color.green : Color.red;
-    }
-
-    private void Start()
-    {
-        ChainEntity
-            .BindNeighbours(_nodes.Select(node => node.ChainEntity).ToArray())
-            .OnStart();
-    }
 
     private void OnMouseDown()
     {
         ChainEntity.ChangeState();
+    }
+
+    public override void Compose()
+    {
+        ChainEntity = new ChainEntity(_isActive);
+
+        ChainEntity.StateChanged += () => GetComponent<SpriteRenderer>().color =
+            ChainEntity.isActive ? Color.green : Color.red;
+    }
+
+    public override void Initialize()
+    {
+        ChainEntity.BindNeighbours(_nodes.Select(node => node.ChainEntity).ToArray());
+    }
+
+    public override void Launch()
+    {
+        ChainEntity.OnStart();
     }
 }
