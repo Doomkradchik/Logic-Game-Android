@@ -51,7 +51,7 @@ public class WireAnimation : MonoBehaviour
                 var rotation = Quaternion.LookRotation(Vector3.forward, direction);
                 segment.transform.rotation = rotation;
 
-                var spriteRenderer = segment.GetComponent<SpriteRenderer>();
+                var spriteRenderer = segment.GetComponentInChildren<SpriteRenderer>();
                 var color = spriteRenderer.color;
 
                 color.a = CalculateTransparency(distance) * TRANSPARENCY_RATIO;

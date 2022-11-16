@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class Node : CompositeRoot
 {
+    [HideInInspector]
     [SerializeField]
     private bool _isActive;
 
+    [HideInInspector]
     [SerializeField]
     private Node[] _nodes;
 
