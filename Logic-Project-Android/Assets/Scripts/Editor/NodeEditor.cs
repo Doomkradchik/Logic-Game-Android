@@ -20,12 +20,7 @@ public class NodeEditor : Editor
 
         _wirePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Wire.prefab");
 
-        _cache = new List<Node>();
-        for (int i = 0; i < _nodesProperty.arraySize; i++)
-        {
-            SerializedProperty property = _nodesProperty.GetArrayElementAtIndex(i);
-            _cache.Add(property.objectReferenceValue as Node);
-        }
+        RefreshCache();
     }
 
     public override void OnInspectorGUI()
@@ -48,19 +43,13 @@ public class NodeEditor : Editor
         {
             _nodesProperty.arraySize++;
             var size = _nodesProperty.arraySize;
-            _nodesProperty.GetArrayElementAtIndex(size -1 ).objectReferenceValue = null;
+            _nodesProperty.GetArrayElementAtIndex(size - 1).objectReferenceValue = null;
         }
           
         if (EditorGUI.EndChangeCheck())
-        {
-            OnGUIItemsChanged();               
-        }
-        _cache = new List<Node>();
-        for (int i = 0; i < _nodesProperty.arraySize; i++)
-        {
-            SerializedProperty property = _nodesProperty.GetArrayElementAtIndex(i);
-            _cache.Add(property.objectReferenceValue as Node);
-        }
+            OnGUIItemsChanged();
+
+        RefreshCache();
         serializedObject.ApplyModifiedProperties();
     }
 
@@ -107,6 +96,16 @@ public class NodeEditor : Editor
 
             UpdateName(wire, node.name);
             UpdatePath(wire.GetComponent<PathCreator>(), node.transform.position);
+        }
+    }
+
+    private void RefreshCache()
+    {
+        _cache = new List<Node>();
+        for (int i = 0; i < _nodesProperty.arraySize; i++)
+        {
+            SerializedProperty property = _nodesProperty.GetArrayElementAtIndex(i);
+            _cache.Add(property.objectReferenceValue as Node);
         }
     }
 
