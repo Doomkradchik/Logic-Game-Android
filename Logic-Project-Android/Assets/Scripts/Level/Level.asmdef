@@ -1,8 +1,8 @@
 {
     "name": "View",
     "references": [
-        "GUID:4a9163bcfd279e5459ff048b483f5a31",
-        "GUID:32a4a836ad5a0b340a079f7de7355f23"
+        "GUID:32a4a836ad5a0b340a079f7de7355f23",
+        "GUID:7511382e890299448af39c435552955d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -95,7 +95,7 @@ public class NodeEditor : Editor
             }
 
             UpdateName(wire, node.name);
-            UpdatePath(wire.GetComponent<PathCreator>(), node.transform.position);
+            UpdatePath(wire.GetComponent<PathCreator>(), node.transform.localPosition);
         }
     }
 

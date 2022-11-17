@@ -14,6 +14,8 @@ public class CompositionOrder : CompositeRoot
         Compose();
         Initialize();
         Launch();
+
+        FindObjectOfType<GameTracker>().LateInit();
     }
 
     public override void Compose()

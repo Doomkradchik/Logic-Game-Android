@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Node : CompositeRoot
 {
     [HideInInspector]
@@ -13,6 +14,8 @@ public class Node : CompositeRoot
 
     public ChainEntity ChainEntity { get; private set; }
 
+    private Animator _animator;
+
     private void OnMouseDown()
     {
         ChainEntity.ChangeState();
@@ -20,10 +23,10 @@ public class Node : CompositeRoot
 
     public override void Compose()
     {
+        _animator = GetComponent<Animator>();
         ChainEntity = new ChainEntity(_isActive);
 
-        ChainEntity.StateChanged += () => GetComponent<SpriteRenderer>().color =
-            ChainEntity.isActive ? Color.green : Color.red;
+        ChainEntity.StateChanged += OnStateChanged;  
     }
 
     public override void Initialize()
@@ -34,5 +37,13 @@ public class Node : CompositeRoot
     public override void Launch()
     {
         ChainEntity.OnStart();
+    }
+
+    private void OnStateChanged(bool state)
+    {
+        if (state)
+            _animator.SetTrigger("enable");
+        else
+            _animator.SetTrigger("disable");
     }
 }

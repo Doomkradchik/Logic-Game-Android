@@ -14,7 +14,7 @@ public class ChainEntity
         return this;
     }
 
-    public event Action StateChanged;
+    public event Action<bool> StateChanged;
     public IEnumerable<ChainEntity> Neighbours => _neighbours;
     public bool isActive
     {
@@ -33,12 +33,12 @@ public class ChainEntity
     public void OnStart()
     {
         Validate(this);
-        StateChanged?.Invoke();
+        StateChanged?.Invoke(isActive);
     }
     public void ChangeState()
     {
         isActive = !isActive;
-        StateChanged?.Invoke();
+        StateChanged?.Invoke(isActive);
     }
     public void Validate(ChainEntity parent)
     {
