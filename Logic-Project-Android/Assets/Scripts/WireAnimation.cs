@@ -8,7 +8,7 @@ public class WireAnimation : MonoBehaviour
     [SerializeField]
     private GameObject _prefab;
 
-    private const float MAX_DELTA = 0.4f;
+    private const float MAX_DELTA = 0.3f;
     private const float SPEED = 0.1f;
     private const float TRANSPARENCY_RATIO = 2f;
 

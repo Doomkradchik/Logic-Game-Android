@@ -15,18 +15,21 @@ public class Node : CompositeRoot
     public ChainEntity ChainEntity { get; private set; }
 
     private Animator _animator;
+    private AudioSource _pushedSoundSource;
 
     private void OnMouseDown()
     {
         ChainEntity.ChangeState();
+        _pushedSoundSource.Play();
     }
 
     public override void Compose()
     {
         _animator = GetComponent<Animator>();
+        _pushedSoundSource = GetComponent<AudioSource>();
         ChainEntity = new ChainEntity(_isActive);
 
-        ChainEntity.StateChanged += OnStateChanged;  
+        ChainEntity.StateChanged += OnStateChanged;
     }
 
     public override void Initialize()
@@ -44,6 +47,6 @@ public class Node : CompositeRoot
         if (state)
             _animator.SetTrigger("enable");
         else
-            _animator.SetTrigger("disable");
+            _animator.SetTrigger("disable");  
     }
 }
